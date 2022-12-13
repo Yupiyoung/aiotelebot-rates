@@ -1,4 +1,8 @@
 import requests
+'''
+В данном файле представлен клсасс, реализующий запрос на https://www.cbr-xml-daily.ru/daily_json.js для получения всех валют с ЦБ
+метод create_currency_list отпраляет запрос на https://www.cbr-xml-daily.ru/daily_json.js и  в ответ получает все доступные валюты
+'''
 class CB_Currency:
     def __init__(self, base_url):
         self.base_url = base_url

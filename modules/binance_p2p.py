@@ -1,5 +1,9 @@
 import requests
-#Класс, реализующий запрос на Binance Api для получения курсов с привязкой к USDT
+
+'''
+В данном файле представлен клсасс, реализующий запрос на Binance https://p2p.binance.com/ru/trade/ для получения курсов с криптовалюты к Рублю
+Также в этом фалйе предсталены команды для введения в бота, для реалицации метода create_rate_list
+'''
 class Binance_P2P:
     header = {
         'authority': 'p2p.binance.com',

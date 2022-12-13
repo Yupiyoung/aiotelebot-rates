@@ -1,6 +1,10 @@
 import  requests
 from datetime import datetime
 import json
+
+'''
+В данном файле реализован класс, который выводит курс валют, основываясь на данных МосБиржи 
+'''
 class Mos_Rate:
     def __init__(self, base_url, currency):
         self.base_url = base_url
@@ -12,7 +16,7 @@ class Mos_Rate:
         response = response[:-1]
         response = json.loads(response)
         if (not response[1]['history']):
-            return ('На данный момент нет актульного курса')
+            return ('На данный момент нет актуального курса')
         else:
             response = response[1]['history'][0]['CLOSE']
             if (response > 0):

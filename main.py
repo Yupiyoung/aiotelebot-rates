@@ -22,22 +22,20 @@ dp = Dispatcher() # Диспетчер
 @dp.message(commands=["start"])
 async def cmd_start(message: types.Message):
     buttons = [
-        [types.KeyboardButton(text='💎 Курс критптовалюты Binance')],
+        [types.KeyboardButton(text='💎 Курс криптовалюты Binance')],
         [types.KeyboardButton(text='💸 Курс на P2P Binance')],
         [types.KeyboardButton(text='💰 Курс МосБиржи')],
         [types.KeyboardButton(text='💰 Курс Тинькофф')],
         [types.KeyboardButton(text='💰 Курс ЦБ РФ')],
-
     ]
     keyboard = types.ReplyKeyboardMarkup(keyboard=buttons)
-    await message.answer("Привет! Я бот бот от студентов HSE, который может помочь тебе быстро отследить крус разной инсторанной валюты и криптовалюты", reply_markup=keyboard)
-
+    await message.answer("Привет! Я бот от студентов HSE, который может помочь тебе быстро отследить курс разной иностранной валюты и криптовалюты", reply_markup=keyboard)
 @dp.message(content_types="text")
 async def process_menu(message: types.Message):
     if message.chat.type == 'private':
         if message.text == '◀️Назад':
             buttons = [
-                [types.KeyboardButton(text='💎 Курс критптовалюты Binance')],
+                [types.KeyboardButton(text='💎 Курс криптовалюты Binance')],
                 [types.KeyboardButton(text='💸 Курс на P2P Binance')],
                 [types.KeyboardButton(text='💰 Курс МосБиржи')],
                 [types.KeyboardButton(text='💰 Курс Тинькофф')],
@@ -48,7 +46,7 @@ async def process_menu(message: types.Message):
             await message.answer(
                  'Выберите действие',
                 reply_markup=keyboard)
-        elif (message.text == '💎 Курс критптовалюты Binance'):
+        elif (message.text == '💎 Курс криптовалюты Binance'):
             builder = ReplyKeyboardBuilder()
             builder.add(types.KeyboardButton(text=str('◀️Назад')))
             await bot.send_message(message.chat.id, '🕑 Загружаю курсы',
@@ -56,7 +54,7 @@ async def process_menu(message: types.Message):
             for i in get_binance_currency.create_symbols_list():
                 builder.add(types.KeyboardButton(text=str(i)))
             builder.adjust(2)
-            await bot.send_message(message.chat.id, 'Выберете криптовалюту', reply_markup=builder.as_markup(resize_keyboard=True))
+            await bot.send_message(message.chat.id, 'Выберите криптовалюту', reply_markup=builder.as_markup(resize_keyboard=True))
         elif (message.text == '💸 Курс на P2P Binance'):
             builder = ReplyKeyboardBuilder()
             builder.add(types.KeyboardButton(text=str('◀️Назад')))
@@ -65,7 +63,7 @@ async def process_menu(message: types.Message):
             for i in p2p_command_list:
                 builder.add(types.KeyboardButton(text=str(i['name'])))
             builder.adjust(1)
-            await bot.send_message(message.chat.id, 'Выберете вариант', reply_markup=builder.as_markup(resize_keyboard=True))
+            await bot.send_message(message.chat.id, 'Выберите вариант', reply_markup=builder.as_markup(resize_keyboard=True))
         elif (message.text == '💰 Курс ЦБ РФ'):
             builder = ReplyKeyboardBuilder()
             builder.add(types.KeyboardButton(text=str('◀️Назад')))
@@ -74,7 +72,7 @@ async def process_menu(message: types.Message):
             for i in get_cb_currency.create_currency_list():
                 builder.add(types.KeyboardButton(text=str(i)))
             builder.adjust(1)
-            await bot.send_message(message.chat.id, 'Выберете вариант',
+            await bot.send_message(message.chat.id, 'Выберите вариант',
                                    reply_markup=builder.as_markup(resize_keyboard=True))
         elif (message.text == '💰 Курс Тинькофф'):
             builder = ReplyKeyboardBuilder()
@@ -84,10 +82,8 @@ async def process_menu(message: types.Message):
             for i in get_tinkoff_currency.create_currency_list():
                 builder.add(types.KeyboardButton(text=str(i['method']+' '+i['currency'])))
             builder.adjust(1)
-            await bot.send_message(message.chat.id, 'Выберете вариант',
+            await bot.send_message(message.chat.id, 'Выберите вариант',
                                    reply_markup=builder.as_markup(resize_keyboard=True))
-
-
         elif (message.text == '💰 Курс МосБиржи'):
             builder = ReplyKeyboardBuilder()
             builder.add(types.KeyboardButton(text=str('◀️Назад')))
@@ -96,15 +92,13 @@ async def process_menu(message: types.Message):
             for i in mos_command_list:
                 builder.add(types.KeyboardButton(text=str(i['name'])))
             builder.adjust(1)
-            await bot.send_message(message.chat.id, 'Выберете вариант',
+            await bot.send_message(message.chat.id, 'Выберите вариант',
                                    reply_markup=builder.as_markup(resize_keyboard=True))
 
         for i in get_tinkoff_currency.create_currency_list():
             if (message.text == i['method']+' '+i['currency']):
                 res = get_tinkoff_rate.create_rate_list(i['currency'])
                 await message.answer(res)
-
-
         for i in mos_command_list:
             if (message.text == i['name']):
                 if (message.text == 'МосБиржа USD'):
@@ -136,6 +130,9 @@ async def process_menu(message: types.Message):
                 response = get_binance_rate.create_rate_list(message.text)
                 await message.answer(
                     response)
+
+
+
 
 
 
